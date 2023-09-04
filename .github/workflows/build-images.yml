@@ -1,7 +1,4 @@
 name: Build and Release Images
-
-permissions:
-  contents: write
   
 on: workflow_dispatch
 
