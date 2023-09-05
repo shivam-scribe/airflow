@@ -5,6 +5,10 @@ on: workflow_dispatch
 jobs:
   build-release:
     runs-on: ubuntu-latest
+    env: 
+      AUTH0_DOMAIN: scribe-hub-dev.us.auth0.com
+      AUTH0_SCRIBE_SERVICE_AUDIENCE: api.research.scribesecurity.com
+      SCRIBE_API_BASE_URI: https://airflow.research.scribesecurity.com
 
     steps:
       - name: Checkout code
@@ -19,6 +23,9 @@ jobs:
           product-key: airflow-git-SBOM
           product-version: ${{ github.run_id }}
           scribe-enable: true
+          scribe-url: $SCRIBE_API_BASE_URI
+          scribe-login-url: https://$AUTH0_DOMAIN
+          scribe-auth-audience: $AUTH0_SCRIBE_SERVICE_AUDIENCE
           scribe-client-id: ${{ secrets.clientid }}
           scribe-client-secret: ${{ secrets.clientsecret }}
 
@@ -44,6 +51,9 @@ jobs:
           product-key: airflow-image-SBOM
           product-version: ${{ github.run_id }}
           scribe-enable: true
+          scribe-url: $SCRIBE_API_BASE_URI
+          scribe-login-url: https://$AUTH0_DOMAIN
+          scribe-auth-audience: $AUTH0_SCRIBE_SERVICE_AUDIENCE
           scribe-client-id: ${{ secrets.clientid }}
           scribe-client-secret: ${{ secrets.clientsecret }}
 
